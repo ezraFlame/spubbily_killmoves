@@ -75,14 +75,12 @@ if SERVER then
 		if animName == "handbreak_player" then
 			timer.Simple(0.37, function()
 				if !IsValid(targetModel) then return end
-				--PlayRandomSound(ply, 1, 3, "player/fists/fists_hit")
 				ply:EmitSound("player/fists/fists_hit0" .. math.random(1, 3) .. ".wav", 100, 100, 0.5, CHAN_AUTO )
 			end)
 		end
 		timer.Simple(1.16, function()
 			if !IsValid(targetModel) then return end
-			--PlayRandomSound(ply, 1, 3, "player/killmove/km_bonebreak")
-			ply:EmitSound("player/fists/km_bonebreak" .. math.random(1, 3) .. ".wav", 100, 100, 0.5, CHAN_AUTO )
+			ply:EmitSound("player/killmove/km_bonebreak" .. math.random(1, 3) .. ".wav", 100, 100, 0.5, CHAN_AUTO )
 		end)
 	end)
 end
@@ -126,10 +124,3 @@ hook.Add( "KMRagdoll", "UniqueName", function(entity, ragdoll, animName)
 	
 	--This basically makes the ragdoll spin like a torpedo, it's -spineAng:Forward() because again source engine bones are weird but it basically means the up direction of it
 end)
-
-if true then
-	if false then
-		local test1 = false
-	end
-	local test = true
-end
