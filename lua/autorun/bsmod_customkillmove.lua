@@ -29,7 +29,7 @@ if SERVER then
 		local targetKMModel = "models/bsmodimations_handbreak.mdl"
 		local animName = "handbreak_player"
 		local plyKMPosition = 60
-		local plyKMAngle = nil
+		local plyKMAngle = 180
 		
 		local kmData = {1, 2, 3, 4, 5} --We'll use this at the end of the hook
 		
