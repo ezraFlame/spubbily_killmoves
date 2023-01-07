@@ -25,7 +25,7 @@ if SERVER then
 	hook.Add("CustomKillMoves", "handbreak_player", function(ply, target, angleAround)
 		
 		--Setup some values for custom killmove data
-		local plyKMModel = "models/weapons/models/c_limbs_template.mdl"
+		local plyKMModel = "models/weapons/c_limbs_template.mdl"
 		local targetKMModel = "models/bsmodimations_handbreak.mdl"
 		local animName = "handbreak_player"
 		local plyKMPosition = 60
