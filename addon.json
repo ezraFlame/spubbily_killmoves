@@ -1,0 +1,11 @@
+{
+	"title"		:	"Spubbily's Custom KillMoves",
+	"type"		:	"weapon",
+	"tags"		:	[ "fun" ],
+	"ignore"	:
+	[
+		"*.psd",
+		"*.vcproj",
+		"*.svn*"
+	]
+}
