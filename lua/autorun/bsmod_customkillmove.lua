@@ -59,7 +59,7 @@ if SERVER then
 		
 		--Positioning the Player for different killmove animations
 		if animName == "handbreak_player" then
-			plyKMPosition = target:GetPos() + (target:GetForward() * 3 ) --Position the player in front of the Target and x distance away
+			plyKMPosition = target:GetPos() + (target:GetForward() * 0 ) --Position the player in front of the Target and x distance away
 		end
 
 		--IMPORTANT: Make sure not to duplicate the rest of the code below, it isn't nessecary and can cause issues, just keep them at the bottom of this function
@@ -72,14 +72,13 @@ if SERVER then
 		if animName ~= nil then return kmData end --Send the killmove data to the main addons killmove check function
 	end)
 	hook.Add("CustomKMEffects", "handbreak_player", function(ply, animName, targetModel)
-		local targetHeadBone = nil
 		if animName == "handbreak_player" then
 			timer.Simple(0.11, function()
 				if !IsValid(targetModel) then return end
 				PlayRandomSound(ply, 1, 3, "player/fists/fists_hit")
 			end)
 		end
-		timer.Simple(0.33, function()
+		timer.Simple(1.3, function()
 			if !IsValid(targetModel) then return end
 			PlayRandomSound(ply, 1, 3, "player/killmove/km_bonebreak")
 		end)
