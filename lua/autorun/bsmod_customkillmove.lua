@@ -73,12 +73,12 @@ if SERVER then
 	end)
 	hook.Add("CustomKMEffects", "handbreak_player", function(ply, animName, targetModel)
 		if animName == "handbreak_player" then
-			timer.Simple(0.11, function()
+			timer.Simple(0.37, function()
 				if !IsValid(targetModel) then return end
 				PlayRandomSound(ply, 1, 3, "player/fists/fists_hit")
 			end)
 		end
-		timer.Simple(1.3, function()
+		timer.Simple(1.16, function()
 			if !IsValid(targetModel) then return end
 			PlayRandomSound(ply, 1, 3, "player/killmove/km_bonebreak")
 		end)
