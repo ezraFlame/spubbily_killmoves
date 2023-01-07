@@ -6,6 +6,7 @@ if SERVER then
 	--This adds to a list of entities that can be killmovable (highlighted blue) when taking damage
 	--ValveBipeds by default are on this list so use this only for entities with different bone structures such as headcrabs
 	--Make sure the entity you're checking for in the killmove function below is added to this list, you can add as many as you want
+	--you don't need to bother with this
 	timer.Simple(0, function()
 		if killMovableEnts then
 			
@@ -22,20 +23,47 @@ if SERVER then
 
 	--This is the hook for custom killmoves
 	--IMPORTANT: Make sure to change the UniqueName to something else to avoid conflicts with other custom killmove addons
-	hook.Add("CustomKillMoves", "handbreak_player", function(ply, target, angleAround)
+	--you don't need to change anything in this line
+	hook.Add("CustomKillMoves", "spubbily_killmoves", function(ply, target, angleAround)
 		
 		--Setup some values for custom killmove data
-		local plyKMModel = "models/weapons/c_limbs_handbreak.mdl"
-		local targetKMModel = "models/bsmodimations_handbreak.mdl"
-		local animName = "handbreak_player"
-		local plyKMPosition = 20
+		--leave this how it is
+		local plyKMModel = nil
+		local targetKMModel = nil
+		local animName = nil
+		local plyKMPosition = target:GetPos()
 		local plyKMAngle = (target:GetForward()):Angle()
+
+		--this generates a random number between 1 and whatever the second number is
+		--we do this to determine what killmove to use
+		--the second number is however many killmoves you have
+		local whichKillToUse = math.random(1, 1)
+
+		--copy this and increase the whichKillToUse == x by 1 to add a new killmove
+		if (whichKillToUse == 1) then
+			plyKMModel = "models/weapons/c_limbs_handbreak.mdl"
+			targetKMModel = "models/bsmodimations_handbreak.mdl"
+			animName = "handbreak_player"
+		end
+		--example:
+		-- if (whichKillToUse == 2) then
+		-- 	plyKMModel = "models/weapons/whatever_your_player_model_is.mdl"
+		-- 	targetKMModel = "models/whatever_your_target_model_is.mdl"
+		-- 	animName = "name_of_the_animation"
+		-- end
+		-- if (whichKillToUse == 3) then
+		-- 	plyKMModel = "models/weapons/whatever_your_other_player_model_is.mdl"
+		-- 	targetKMModel = "models/whatever_your_other_target_model_is.mdl"
+		-- 	animName = "name_of_the_other_animation"
+		-- end
+		--etc.
 		
 		local kmData = {1, 2, 3, 4, 5} --We'll use this at the end of the hook
 		
 		--plyKMModel = "models/weapons/models/c_limbs_template.mdl" --We set the Players killmove model to the custom one that has the animations
 		
 		--Use these checks for angle specific killmoves, make sure to keep the brackets when using them
+		--you probably won't need this; if you do, ask me and I'll explain it
 		if (angleAround <= 45 or angleAround > 315) then
 			print("in front of target")
 		elseif (angleAround > 45 and angleAround <= 135) then
@@ -50,6 +78,7 @@ if SERVER then
 		
 		--This checks if the target is a Zombie, the Player is on the ground and that the Target model is a valvebiped one
 		--It also has a chance to not happen as shown by the math.random, that way other killmoves can have a chance of happening
+		--you probably won't need this; if you do, ask me and I'll explain it
 		if target:GetClass() == "npc_zombie" and ply:OnGround() and target:LookupBone("ValveBiped.Bip01_Spine") and (angleAround <= 45 or angleAround > 315) and math.random(1, 3) >= 3 then
 		
 			targetKMModel = "models/bsmodimations_zombie_template.mdl" --Set the Targets killmove model
@@ -58,30 +87,52 @@ if SERVER then
 		end
 		
 		--Positioning the Player for different killmove animations
+		--you probably won't need this; if you do, ask me and I'll explain it
 		if animName == "handbreak_player" then
 			plyKMPosition = target:GetPos() --Position the player in front of the Target and x distance away
 		end
 
 		--IMPORTANT: Make sure not to duplicate the rest of the code below, it isn't nessecary and can cause issues, just keep them at the bottom of this function
+		--don't change this
 		kmData[1] = plyKMModel
 		kmData[2] = targetKMModel
 		kmData[3] = animName
 		kmData[4] = plyKMPosition
 		kmData[5] = plyKMAngle
-
+		
+		--don't change this
 		if animName ~= nil then return kmData end --Send the killmove data to the main addons killmove check function
 	end)
-	hook.Add("CustomKMEffects", "handbreak_player", function(ply, animName, targetModel)
+	--leave this as it is
+	hook.Add("CustomKMEffects", "spubbily_killmoves", function(ply, animName, targetModel)
+		--copy this if statement to and change the animName == "handbreak_player" to animName == "whatever_the_name_of_your_animation_is"
+		--then, make sure all the timer.Simple things are inside the if statement
 		if animName == "handbreak_player" then
 			timer.Simple(0.37, function()
 				if !IsValid(targetModel) then return end
 				ply:EmitSound("player/fists/fists_hit0" .. math.random(1, 3) .. ".wav", 100, 100, 0.5, CHAN_AUTO )
 			end)
+			timer.Simple(1.16, function()
+				if !IsValid(targetModel) then return end
+				ply:EmitSound("player/killmove/km_bonebreak" .. math.random(1, 3) .. ".wav", 100, 100, 0.5, CHAN_AUTO )
+			end)
 		end
-		timer.Simple(1.16, function()
-			if !IsValid(targetModel) then return end
-			ply:EmitSound("player/killmove/km_bonebreak" .. math.random(1, 3) .. ".wav", 100, 100, 0.5, CHAN_AUTO )
-		end)
+
+		--example:
+
+		-- if animName == "name_of_the_animation" then
+		-- 	--first sound at 0 seconds (0 frames)
+		-- 	timer.Simple(0, function()
+		-- 		--make sure we have a model
+		-- 		if !IsValid(targetModel) then return end
+		-- 		ply:EmitSound("wherever/the/sound/is.wav", 100, 100, 0.5, CHAN_AUTO )
+		-- 	end)
+		-- 	--second sound at .33 secondws (10 frames)
+		-- 	timer.Simple(0.33, function()
+		-- 		if !IsValid(targetModel) then return end
+		-- 		ply:EmitSound("different/sound.wav", 100, 100, 0.5, CHAN_AUTO )
+		-- 	end)
+		-- end
 	end)
 end
 
