@@ -59,7 +59,7 @@ if SERVER then
 		
 		--Positioning the Player for different killmove animations
 		if animName == "handbreak_player" then
-			plyKMPosition = target:GetPos() + (target:GetForward() * 0 ) --Position the player in front of the Target and x distance away
+			plyKMPosition = target:GetPos() --Position the player in front of the Target and x distance away
 		end
 
 		--IMPORTANT: Make sure not to duplicate the rest of the code below, it isn't nessecary and can cause issues, just keep them at the bottom of this function
@@ -75,12 +75,14 @@ if SERVER then
 		if animName == "handbreak_player" then
 			timer.Simple(0.37, function()
 				if !IsValid(targetModel) then return end
-				PlayRandomSound(ply, 1, 3, "player/fists/fists_hit")
+				--PlayRandomSound(ply, 1, 3, "player/fists/fists_hit")
+				ply:EmitSound("player/fists/fists_hit0" .. math.random(1, 3) .. ".wav", 100, 100, 0.5, CHAN_AUTO )
 			end)
 		end
 		timer.Simple(1.16, function()
 			if !IsValid(targetModel) then return end
-			PlayRandomSound(ply, 1, 3, "player/killmove/km_bonebreak")
+			--PlayRandomSound(ply, 1, 3, "player/killmove/km_bonebreak")
+			ply:EmitSound("player/fists/km_bonebreak" .. math.random(1, 3) .. ".wav", 100, 100, 0.5, CHAN_AUTO )
 		end)
 	end)
 end
