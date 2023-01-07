@@ -28,8 +28,8 @@ if SERVER then
 		local plyKMModel = "models/weapons/c_limbs_handbreak.mdl"
 		local targetKMModel = "models/bsmodimations_handbreak.mdl"
 		local animName = "handbreak_player"
-		local plyKMPosition = 60
-		local plyKMAngle = 180
+		local plyKMPosition = 20
+		local plyKMAngle = (target:GetForward()):Angle()
 		
 		local kmData = {1, 2, 3, 4, 5} --We'll use this at the end of the hook
 		
@@ -59,7 +59,7 @@ if SERVER then
 		
 		--Positioning the Player for different killmove animations
 		if animName == "handbreak_player" then
-			plyKMPosition = target:GetPos() + (target:GetForward() * 60 ) --Position the player in front of the Target and x distance away
+			plyKMPosition = target:GetPos() + (target:GetForward() * 3 ) --Position the player in front of the Target and x distance away
 		end
 
 		--IMPORTANT: Make sure not to duplicate the rest of the code below, it isn't nessecary and can cause issues, just keep them at the bottom of this function
