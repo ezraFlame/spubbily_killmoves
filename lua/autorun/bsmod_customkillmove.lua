@@ -63,9 +63,9 @@ if SERVER then
 		--plyKMModel = "models/weapons/models/c_limbs_template.mdl" --We set the Players killmove model to the custom one that has the animations
 		
 		--Use these checks for angle specific killmoves, make sure to keep the brackets when using them
-		--you probably won't need this; if you do, ask me and I'll explain it
+		--you probably don't need this
 		if (angleAround <= 45 or angleAround > 315) then
-			print("in front of target")
+			--print("in front of target")
 		elseif (angleAround > 45 and angleAround <= 135) then
 			--print("left of target")
 		elseif (angleAround > 135 and angleAround <= 225) then
@@ -87,7 +87,7 @@ if SERVER then
 		end
 		
 		--Positioning the Player for different killmove animations
-		--you probably won't need this; if you do, ask me and I'll explain it
+		--you don't need this as moving the model inside blender already does this purpouse
 		if animName == "handbreak_player" then
 			plyKMPosition = target:GetPos() --Position the player in front of the Target and x distance away
 		end
