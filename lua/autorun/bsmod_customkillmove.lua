@@ -125,7 +125,7 @@ if SERVER then
 				ply:EmitSound("player/killmove/km_bonebreak" .. math.random(1, 3) .. ".wav", 100, 100, 0.5, CHAN_AUTO )
 			end)
 		end
-		if animName == "handbreak_player" then
+		if animName == "boink" then
 			timer.Simple(0.73, function()
 				if !IsValid(targetModel) then return end
 				ply:EmitSound("player/fists/fists_hit0" .. math.random(1, 3) .. ".wav", 100, 100, 0.5, CHAN_AUTO )
