@@ -33,42 +33,47 @@ if SERVER then
 		local animName = nil
 		local plyKMPosition = target:GetPos()
 		local plyKMAngle = (target:GetForward()):Angle()
-
-		--this generates a random number between 1 and whatever the second number is
-		--we do this to determine what killmove to use
-		--the second number is however many killmoves you have
-		local whichKillToUse = math.random(1, 2)
-
-		--copy this and increase the whichKillToUse == x by 1 to add a new killmove
-		if (whichKillToUse == 1) then
-			animName = "handbreak_player"
-		end
-		if (whichKillToUse == 2) then
-			animName = "boink"
-		end
-		--example:
-		-- if (whichKillToUse == 2) then
-		-- 	animName = "name_of_the_animation"
-		-- end
-		-- if (whichKillToUse == 3) then
-		-- 	animName = "name_of_the_other_animation"
-		-- end
-		--etc.
+	
 		
 		local kmData = {1, 2, 3, 4, 5} --We'll use this at the end of the hook
 		
 		--plyKMModel = "models/weapons/models/c_limbs_template.mdl" --We set the Players killmove model to the custom one that has the animations
 		
+		--this generates a random number between 1 and whatever the second number is
+		local whichKillToUse = 0
+
 		--Use these checks for angle specific killmoves, make sure to keep the brackets when using them
-		--you probably don't need this
 		if (angleAround <= 45 or angleAround > 315) then
-			print("in front of target")
+			--put front killmoves here
+			--the second number is how many front killmoves there are
+			whichKillToUse = math.random(1, 2)
+			--copy this and increase the whichKillToUse == x by 1 to add a new killmove
+			if (whichKillToUse == 1) then
+				animName = "handbreak_player"
+			end
+			if (whichKillToUse == 2) then
+				animName = "boink"
+			end
+			--example:
+			-- if (whichKillToUse == 2) then
+			-- 	animName = "name_of_the_animation"
+			-- end
+			-- if (whichKillToUse == 3) then
+			-- 	animName = "name_of_the_other_animation"
+			-- end
+			--etc.
 		elseif (angleAround > 45 and angleAround <= 135) then
 			--print("left of target")
 		elseif (angleAround > 135 and angleAround <= 225) then
 			--print("behind target")
 		elseif (angleAround > 225 and angleAround <= 315) then
-			--print("right of target")
+			--put back killmoves here
+
+			--this is the same as the one above, but the second number only applies to back killmoves
+			whichKillToUse = math.random(1, 1)
+			if (whichKillToUse == 1) then
+				--animName = "back_kill"
+			end
 		end
 		
 		--No need to add if checks for tons of npcs when you can put target:LookupBone("bonename") in them, an example of this being used is below
