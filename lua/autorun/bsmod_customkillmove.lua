@@ -92,7 +92,7 @@ if SERVER then
 		end
 		
 		--Positioning the Player for different killmove animations
-		--you don't need this as moving the model inside blender already does this purpouse
+		--you don't need this as moving the model inside blender already does this
 		if animName == "handbreak_player" then
 			plyKMPosition = target:GetPos() --Position the player in front of the Target and x distance away
 		end
