@@ -28,8 +28,8 @@ if SERVER then
 		
 		--Setup some values for custom killmove data
 		--leave this how it is
-		local plyKMModel = nil
-		local targetKMModel = nil
+		local plyKMModel = "models/weapons/c_limbs_handbreak.mdl"
+		local targetKMModel = "models/bsmodimations_handbreak.mdl"
 		local animName = nil
 		local plyKMPosition = target:GetPos()
 		local plyKMAngle = (target:GetForward()):Angle()
@@ -41,24 +41,16 @@ if SERVER then
 
 		--copy this and increase the whichKillToUse == x by 1 to add a new killmove
 		if (whichKillToUse == 1) then
-			plyKMModel = "models/weapons/c_limbs_handbreak.mdl"
-			targetKMModel = "models/bsmodimations_handbreak.mdl"
 			animName = "handbreak_player"
 		end
 		if (whichKillToUse == 2) then
-			plyKMModel = "models/weapons/c_limbs_handbreak.mdl"
-			targetKMModel = "models/bsmodimations_handbreak.mdl"
 			animName = "boink"
 		end
 		--example:
 		-- if (whichKillToUse == 2) then
-		-- 	plyKMModel = "models/weapons/whatever_your_player_model_is.mdl"
-		-- 	targetKMModel = "models/whatever_your_target_model_is.mdl"
 		-- 	animName = "name_of_the_animation"
 		-- end
 		-- if (whichKillToUse == 3) then
-		-- 	plyKMModel = "models/weapons/whatever_your_other_player_model_is.mdl"
-		-- 	targetKMModel = "models/whatever_your_other_target_model_is.mdl"
 		-- 	animName = "name_of_the_other_animation"
 		-- end
 		--etc.
