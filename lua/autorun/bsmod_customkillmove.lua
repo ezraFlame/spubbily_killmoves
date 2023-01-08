@@ -37,13 +37,18 @@ if SERVER then
 		--this generates a random number between 1 and whatever the second number is
 		--we do this to determine what killmove to use
 		--the second number is however many killmoves you have
-		local whichKillToUse = math.random(1, 1)
+		local whichKillToUse = math.random(1, 2)
 
 		--copy this and increase the whichKillToUse == x by 1 to add a new killmove
 		if (whichKillToUse == 1) then
 			plyKMModel = "models/weapons/c_limbs_handbreak.mdl"
 			targetKMModel = "models/bsmodimations_handbreak.mdl"
 			animName = "handbreak_player"
+		end
+		if (whichKillToUse == 2) then
+			plyKMModel = "models/weapons/c_limbs_handbreak.mdl"
+			targetKMModel = "models/bsmodimations_handbreak.mdl"
+			animName = "boink"
 		end
 		--example:
 		-- if (whichKillToUse == 2) then
@@ -65,7 +70,7 @@ if SERVER then
 		--Use these checks for angle specific killmoves, make sure to keep the brackets when using them
 		--you probably don't need this
 		if (angleAround <= 45 or angleAround > 315) then
-			--print("in front of target")
+			print("in front of target")
 		elseif (angleAround > 45 and angleAround <= 135) then
 			--print("left of target")
 		elseif (angleAround > 135 and angleAround <= 225) then
@@ -89,6 +94,9 @@ if SERVER then
 		--Positioning the Player for different killmove animations
 		--you don't need this as moving the model inside blender already does this purpouse
 		if animName == "handbreak_player" then
+			plyKMPosition = target:GetPos() --Position the player in front of the Target and x distance away
+		end
+		if animName == "boink" then
 			plyKMPosition = target:GetPos() --Position the player in front of the Target and x distance away
 		end
 
@@ -117,7 +125,16 @@ if SERVER then
 				ply:EmitSound("player/killmove/km_bonebreak" .. math.random(1, 3) .. ".wav", 100, 100, 0.5, CHAN_AUTO )
 			end)
 		end
-
+		if animName == "handbreak_player" then
+			timer.Simple(0.73, function()
+				if !IsValid(targetModel) then return end
+				ply:EmitSound("player/fists/fists_hit0" .. math.random(1, 3) .. ".wav", 100, 100, 0.5, CHAN_AUTO )
+			end)
+			timer.Simple(0.73, function()
+				if !IsValid(targetModel) then return end
+				ply:EmitSound("player/killmove/km_bonebreak" .. math.random(1, 3) .. ".wav", 100, 100, 0.5, CHAN_AUTO )
+			end)
+		end
 		--example:
 
 		-- if animName == "name_of_the_animation" then
