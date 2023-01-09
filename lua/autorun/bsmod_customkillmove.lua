@@ -77,6 +77,7 @@ if SERVER then
 			--this is the same as the one above, but the second number only applies to back killmoves
 			whichKillToUse = math.random(1, 1)
 			if (whichKillToUse == 1) then
+				animName = "griddy_then_die"
 				--animName = "back_kill"
 			end
 		elseif (angleAround > 225 and angleAround <= 315) then
@@ -107,6 +108,9 @@ if SERVER then
 			plyKMPosition = target:GetPos() --Position the player in front of the Target and x distance away
 		end
 		if animName == "boink" then
+			plyKMPosition = target:GetPos() --Position the player in front of the Target and x distance away
+		end
+		if animName == "griddy_then_die" then
 			plyKMPosition = target:GetPos() --Position the player in front of the Target and x distance away
 		end
 
@@ -143,6 +147,12 @@ if SERVER then
 			timer.Simple(0.73, function()
 				if !IsValid(targetModel) then return end
 				ply:EmitSound("player/killmove/km_bonebreak" .. math.random(1, 3) .. ".wav", 100, 100, 0.5, CHAN_AUTO )
+			end)
+		end
+		if animName == "griddy_then_die" then
+			timer.Simple(0.5, function()
+				if !IsValid(targetModel) then return end
+				ply:EmitSound("player/fists/fists_hit0" .. math.random(1, 3) .. ".wav", 100, 100, 0.5, CHAN_AUTO )
 			end)
 		end
 		--example:
