@@ -62,7 +62,6 @@ if SERVER then
 			-- 	animName = "name_of_the_other_animation"
 			-- end
 			--etc.
-			ply:PrintMessage(HUD_PRINTTALK, "front")
 		elseif (angleAround > 45 and angleAround <= 135) then
 			--put left killmoves here
 
@@ -86,7 +85,7 @@ if SERVER then
 			--this is the same as the one above, but the second number only applies to right killmoves
 			whichKillToUse = math.random(1, 1)
 			if (whichKillToUse == 1) then
-				--animName = "left_kill"
+				--animName = "right_kill"
 			end
 		end
 		
