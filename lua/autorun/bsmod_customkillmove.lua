@@ -175,13 +175,18 @@ end
 --This is the hook for modifying the ragdoll after being killmoved
 --it's also outside of the server check because it's needed for serverside and clientside ragdolls
 
-hook.Add( "KMRagdoll", "UniqueName", function(entity, ragdoll, animName)
+hook.Add( "KMRagdoll", "spubbily_killmoves", function(entity, ragdoll, animName)
 	
 	--Define the position and angles of a bone, we'll talk about this further down
 	local spinePos, spineAng = nil
 	
-	if ragdoll:LookupBone("ValveBiped.Bip01_Spine") then 
-		spinePos, spineAng = ragdoll:GetBonePosition(ragdoll:LookupBone("ValveBiped.Bip01_Spine"))
+	local spine = ragdoll:LookupBone("ValveBiped.Bip01_Spine")
+
+	if spine then 
+		spinePos, spineAng = ragdoll:GetBonePosition(spine)
+
+		local phys = ragdoll:GetPhysicsObjectNum(ragdoll:TranslateBoneToPhysBone(spine))
+		phys:SetVelocity(spineAng:Forward() * 75000)
 	end
 	
 	--Loop through all of the ragdoll's bones that have a physics mesh attached, this will basically move the entire ragdoll
@@ -189,9 +194,12 @@ hook.Add( "KMRagdoll", "UniqueName", function(entity, ragdoll, animName)
 		local bone = ragdoll:GetPhysicsObjectNum(i)
 		
 		if bone and bone:IsValid() then
-			
 			--We won't be needing this but if you do then feel free to uncomment it
 			--local bonepos, boneang = ragdoll:GetBonePosition(ragdoll:TranslatePhysBoneToBone(i))
+
+			if ragdoll:TranslatePhysBoneToBone(i) == spine then
+				bone:SetVelocity(-spineAng:Forward() * 250)
+			end
 			
 			if animName == "killmove_zombie_kick1" then
 				if spineAng ~= nil then
