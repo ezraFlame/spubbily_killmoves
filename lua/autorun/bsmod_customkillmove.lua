@@ -50,6 +50,8 @@ if SERVER then
 			--copy this and increase the whichKillToUse == x by 1 to add a new killmove
 			if (whichKillToUse == 1) then
 				animName = "front1"
+				--if you need a different model:
+				--plyKMModel = "models/weapons/themodel.mdl"
 			end
 			if (whichKillToUse == 2) then
 				animName = "front2"
@@ -74,10 +76,15 @@ if SERVER then
 			--put back killmoves here
 
 			--this is the same as the one above, but the second number only applies to back killmoves
-			whichKillToUse = math.random(1, 1)
+			whichKillToUse = math.random(1, 2)
 			if (whichKillToUse == 1) then
 				animName = "back1"
 				--animName = "back_kill"
+			end
+
+			if (whichKillToUse == 2) then
+				animName = "back2"
+				plyKMModel = "models/weapons/c_limbs_shamrock2.mdl"
 			end
 		elseif (angleAround > 225 and angleAround <= 315) then
 			--put right killmoves here
