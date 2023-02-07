@@ -28,8 +28,8 @@ if SERVER then
 		
 		--Setup some values for custom killmove data
 		--leave this how it is
-		local plyKMModel = "models/weapons/c_limbs_handbreak.mdl"
-		local targetKMModel = "models/bsmodimations_handbreak.mdl"
+		local plyKMModel = "models/weapons/c_limbs_shamrock.mdl"
+		local targetKMModel = "models/bsmodimations_shamrock.mdl"
 		local animName = nil
 		local plyKMPosition = target:GetPos()
 		local plyKMAngle = (target:GetForward()):Angle()
@@ -49,10 +49,10 @@ if SERVER then
 			whichKillToUse = math.random(1, 2)
 			--copy this and increase the whichKillToUse == x by 1 to add a new killmove
 			if (whichKillToUse == 1) then
-				animName = "handbreak_player"
+				animName = "front1"
 			end
 			if (whichKillToUse == 2) then
-				animName = "boink"
+				animName = "front2"
 			end
 			--example:
 			-- if (whichKillToUse == 2) then
@@ -76,7 +76,7 @@ if SERVER then
 			--this is the same as the one above, but the second number only applies to back killmoves
 			whichKillToUse = math.random(1, 1)
 			if (whichKillToUse == 1) then
-				animName = "griddy_then_die"
+				animName = "back1"
 				--animName = "back_kill"
 			end
 		elseif (angleAround > 225 and angleAround <= 315) then
@@ -98,18 +98,18 @@ if SERVER then
 		
 			targetKMModel = "models/bsmodimations_zombie_template.mdl" --Set the Targets killmove model
 
-			animName = "handbreak_player"
+			animName = "shamrock_player"
 		end
 		
 		--Positioning the Player for different killmove animations
 		--you don't need this as moving the model inside blender already does this
-		if animName == "handbreak_player" then
+		if animName == "front1" then
 			plyKMPosition = target:GetPos() --Position the player in front of the Target and x distance away
 		end
-		if animName == "boink" then
+		if animName == "front2" then
 			plyKMPosition = target:GetPos() --Position the player in front of the Target and x distance away
 		end
-		if animName == "griddy_then_die" then
+		if animName == "back1" then
 			plyKMPosition = target:GetPos() --Position the player in front of the Target and x distance away
 		end
 
@@ -126,32 +126,36 @@ if SERVER then
 	end)
 	--leave this as it is
 	hook.Add("CustomKMEffects", "spubbily_killmoves", function(ply, animName, targetModel)
-		--copy this if statement to and change the animName == "handbreak_player" to animName == "whatever_the_name_of_your_animation_is"
+		--copy this if statement to and change the animName == "shamrock_player" to animName == "whatever_the_name_of_your_animation_is"
 		--then, make sure all the timer.Simple things are inside the if statement
-		if animName == "handbreak_player" then
-			timer.Simple(0.37, function()
+		if animName == "front1" then
+			timer.Simple(0.33, function()
 				if !IsValid(targetModel) then return end
 				ply:EmitSound("player/fists/fists_hit0" .. math.random(1, 3) .. ".wav", 100, 100, 0.5, CHAN_AUTO )
 			end)
-			timer.Simple(1.16, function()
+			timer.Simple(1.37, function()
 				if !IsValid(targetModel) then return end
 				ply:EmitSound("player/killmove/km_bonebreak" .. math.random(1, 3) .. ".wav", 100, 100, 0.5, CHAN_AUTO )
 			end)
 		end
-		if animName == "boink" then
-			timer.Simple(0.73, function()
+		if animName == "front2" then
+			timer.Simple(0.3, function()
 				if !IsValid(targetModel) then return end
 				ply:EmitSound("player/fists/fists_hit0" .. math.random(1, 3) .. ".wav", 100, 100, 0.5, CHAN_AUTO )
 			end)
-			timer.Simple(0.73, function()
+			timer.Simple(1.7, function()
 				if !IsValid(targetModel) then return end
 				ply:EmitSound("player/killmove/km_bonebreak" .. math.random(1, 3) .. ".wav", 100, 100, 0.5, CHAN_AUTO )
 			end)
 		end
-		if animName == "griddy_then_die" then
-			timer.Simple(0.5, function()
+		if animName == "back1" then
+			timer.Simple(0.83, function()
 				if !IsValid(targetModel) then return end
-				ply:EmitSound("player/fists/fists_hit0" .. math.random(1, 3) .. ".wav", 100, 100, 0.5, CHAN_AUTO )
+				ply:EmitSound("player/shamrock_kills/suffo" .. math.random(0, 4) .. ".wav", 100, 100, 0.5, CHAN_AUTO )
+			end)
+			timer.Simple(1.5, function()
+				if !IsValid(targetModel) then return end
+				ply:EmitSound("player/shamrock_kills/suffo" .. math.random(0, 4) .. ".wav", 100, 100, 0.5, CHAN_AUTO )
 			end)
 		end
 		--example:
